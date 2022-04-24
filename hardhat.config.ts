@@ -121,6 +121,21 @@ export default {
       ...sharedNetworkConfig,
       chainId: 100,
     },
+    mumbai: {
+      url: `https://rpc-mumbai.maticvigil.com`,
+      ...sharedNetworkConfig,
+      chainId: 80001,
+    },
+    kovan: {
+      url: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
+      ...sharedNetworkConfig,
+      chainId: 137,
+    },
+    optimism: {
+      url: `https://kovan.optimism.io`,
+      ...sharedNetworkConfig,
+      chainId: 69,
+    },
   },
   namedAccounts: {
     // Note: accounts defined by a number refer to the the accounts as configured
