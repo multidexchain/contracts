@@ -44,8 +44,8 @@ const Wallet = () => {
                         Connect
                     </MenuButton>
                     <MenuList>
-                        <MenuItem bg="gray.700" color="brand.400" onClick={connect}>Metamask</MenuItem>
-                        <MenuItem bg="gray.700" color="brand.400" onClick={walletConnect}>WalletConnect</MenuItem>
+                        <MenuItem onClick={connect}>Metamask</MenuItem>
+                        <MenuItem onClick={walletConnect}>WalletConnect</MenuItem>
                     </MenuList>
 
                 </Menu>
