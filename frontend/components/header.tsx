@@ -30,7 +30,7 @@ import {
                 ""
               ) : (
                 <Text color={"white"} fontWeight="bold" fontSize="2xl" >
-                  Multi Chain Dex
+                  Heard of Cows
                 </Text>
               )}
             </Flex>
