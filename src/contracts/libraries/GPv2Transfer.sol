@@ -25,6 +25,9 @@ library GPv2Transfer {
     /// @dev Ether marker address used to indicate an Ether transfer.
     address internal constant BUY_ETH_ADDRESS =
         0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+    // TODO move
+    uint32 internal constant currentChain = 1111;
+    IConnext internal constant connext = IConnext(0x3e99898Da8A01Ed909976AF13e4Fa6094326cB10);
 
     /// @dev Execute the specified transfer from the specified account to a
     /// recipient. The recipient will either receive internal Vault balances or
@@ -183,10 +186,6 @@ library GPv2Transfer {
             vault.manageUserBalance(balanceOps);
         }
     }
-
-    // TODO move
-    uint32 internal constant currentChain = 1111;
-    IConnext internal constant connext = IConnext(0x3e99898Da8A01Ed909976AF13e4Fa6094326cB10);
 
     function bridge(IERC20 token, address account, uint32 chain, uint256 amount) internal {
         token.approve(address(connext), amount);
