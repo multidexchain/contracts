@@ -21,6 +21,8 @@ library GPv2Order {
         bool partiallyFillable;
         bytes32 sellTokenBalance;
         bytes32 buyTokenBalance;
+        uint32 sellTokenChain;
+        uint32 buyTokenChain;
     }
 
     /// @dev The order EIP-712 type hash for the [`GPv2Order.Data`] struct.
