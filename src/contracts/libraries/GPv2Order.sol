@@ -31,7 +31,9 @@ library GPv2Order {
     /// ```
     /// keccak256(
     ///     "Order(" +
+    ///         "uint32 sellTokenChain," +
     ///         "address sellToken," +
+    ///         "uint32 buyTokenChain," +
     ///         "address buyToken," +
     ///         "address receiver," +
     ///         "uint256 sellAmount," +
