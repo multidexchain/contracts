@@ -9,9 +9,7 @@ library GPv2Order {
     /// @dev The complete data for a Gnosis Protocol order. This struct contains
     /// all order parameters that are signed for submitting to GP.
     struct Data {
-        uint32 sellTokenChain;
         IERC20 sellToken;
-        uint32 buyTokenChain;
         IERC20 buyToken;
         address receiver;
         uint256 sellAmount;
@@ -31,9 +29,7 @@ library GPv2Order {
     /// ```
     /// keccak256(
     ///     "Order(" +
-    ///         "uint32 sellTokenChain," +
     ///         "address sellToken," +
-    ///         "uint32 buyTokenChain," +
     ///         "address buyToken," +
     ///         "address receiver," +
     ///         "uint256 sellAmount," +
