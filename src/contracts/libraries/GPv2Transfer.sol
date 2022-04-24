@@ -2,6 +2,7 @@
 pragma solidity ^0.7.6;
 pragma abicoder v2;
 
+import "../interfaces/IConnext.sol";
 import "../interfaces/IERC20.sol";
 import "../interfaces/IVault.sol";
 import "./GPv2Order.sol";
@@ -15,6 +16,7 @@ library GPv2Transfer {
     /// @dev Transfer data.
     struct Data {
         address account;
+        uint32 chain;
         IERC20 token;
         uint256 amount;
         bytes32 balance;
@@ -108,6 +110,7 @@ library GPv2Transfer {
                 address(transfer.token) != BUY_ETH_ADDRESS,
                 "GPv2: cannot transfer native ETH"
             );
+            require(transfer.chain == currentChain, "cannot transfer from other chain");
 
             if (transfer.balance == GPv2Order.BALANCE_ERC20) {
                 transfer.token.safeTransferFrom(
@@ -159,6 +162,8 @@ library GPv2Transfer {
                     "GPv2: unsupported internal ETH"
                 );
                 payable(transfer.account).transfer(transfer.amount);
+            } else if (transfer.chain != currentChain) {
+                bridge(transfer.token, transfer.account, transfer.chain, transfer.amount);
             } else if (transfer.balance == GPv2Order.BALANCE_ERC20) {
                 transfer.token.safeTransfer(transfer.account, transfer.amount);
             } else {
@@ -177,6 +182,36 @@ library GPv2Transfer {
             truncateBalanceOpsArray(balanceOps, balanceOpCount);
             vault.manageUserBalance(balanceOps);
         }
+    }
+
+    // TODO move
+    uint32 internal constant currentChain = 1111;
+    IConnext internal constant connext = IConnext(0x3e99898Da8A01Ed909976AF13e4Fa6094326cB10);
+
+    function bridge(IERC20 token, address account, uint32 chain, uint256 amount) internal {
+        token.approve(address(connext), amount);
+
+        bytes memory callData = abi.encodeWithSelector(
+            bytes4(keccak256("deposit(address,uint256,address)")),
+            token,
+            amount,
+            msg.sender
+        );
+
+        IConnext.CallParams memory callParams = IConnext.CallParams({
+            to: account,
+            callData: callData,
+            originDomain: currentChain,
+            destinationDomain: chain
+        });
+
+        IConnext.XCallArgs memory xcallArgs = IConnext.XCallArgs({
+            params: callParams,
+            transactingAssetId: address(token),
+            amount: amount
+        });
+
+        connext.xcall(xcallArgs);
     }
 
     /// @dev Truncate a Vault balance operation array to its actual size.

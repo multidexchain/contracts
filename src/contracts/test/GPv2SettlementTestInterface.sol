@@ -20,6 +20,7 @@ contract GPv2SettlementTestInterface is GPv2Settlement {
     }
 
     function computeTradeExecutionsTest(
+        uint32[] calldata chains,
         IERC20[] calldata tokens,
         uint256[] calldata clearingPrices,
         GPv2Trade.Data[] calldata trades
@@ -31,6 +32,7 @@ contract GPv2SettlementTestInterface is GPv2Settlement {
         )
     {
         (inTransfers, outTransfers) = computeTradeExecutions(
+            chains,
             tokens,
             clearingPrices,
             trades

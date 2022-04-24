@@ -119,6 +119,7 @@ contract GPv2Settlement is GPv2Signing, ReentrancyGuard, StorageAccessible {
     /// separate lists to be run before the settlement, during the settlement
     /// and after the settlement respectively.
     function settle(
+        uint32[] calldata chains,
         IERC20[] calldata tokens,
         uint256[] calldata clearingPrices,
         GPv2Trade.Data[] calldata trades,
@@ -129,15 +130,21 @@ contract GPv2Settlement is GPv2Signing, ReentrancyGuard, StorageAccessible {
         (
             GPv2Transfer.Data[] memory inTransfers,
             GPv2Transfer.Data[] memory outTransfers
-        ) = computeTradeExecutions(tokens, clearingPrices, trades);
+        ) = computeTradeExecutions(chains, tokens, clearingPrices, trades);
 
         vaultRelayer.transferFromAccounts(inTransfers);
 
+        // TODO: sync / revert
+
         executeInteractions(interactions[1]);
+
+        // TODO: sync / revert
 
         vault.transferToAccounts(outTransfers);
 
         executeInteractions(interactions[2]);
+
+        // TODO sync and done
 
         emit Settlement(msg.sender);
     }
@@ -290,6 +297,7 @@ contract GPv2Settlement is GPv2Signing, ReentrancyGuard, StorageAccessible {
     /// @return inTransfers Array of in transfers of executed sell amounts.
     /// @return outTransfers Array of out transfers of executed buy amounts.
     function computeTradeExecutions(
+        uint32[] calldata chains,
         IERC20[] calldata tokens,
         uint256[] calldata clearingPrices,
         GPv2Trade.Data[] calldata trades
@@ -434,11 +442,13 @@ contract GPv2Settlement is GPv2Signing, ReentrancyGuard, StorageAccessible {
 
         inTransfer.account = recoveredOrder.owner;
         inTransfer.token = order.sellToken;
+        inTransfer.chain = order.sellTokenChain;
         inTransfer.amount = executedSellAmount;
         inTransfer.balance = order.sellTokenBalance;
 
         outTransfer.account = recoveredOrder.receiver;
         outTransfer.token = order.buyToken;
+        outTransfer.chain = order.buyTokenChain;
         outTransfer.amount = executedBuyAmount;
         outTransfer.balance = order.buyTokenBalance;
     }
