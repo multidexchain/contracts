@@ -6,7 +6,6 @@ import { getProvider } from "../utils/web3";
 import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const imgMyimageexample = require('../public/images/outer-space.jpeg');
   return (
     <div className="root_container" >
         <Web3ReactProvider getLibrary={getProvider}>

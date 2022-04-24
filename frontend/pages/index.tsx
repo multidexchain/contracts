@@ -21,35 +21,62 @@ const Home: NextPage = () => {
             <Box m="4" border="solid" borderColor="black.600" borderRadius="8px" p="4" width="700px" >
               <Flex direction="column" justify="center">
                 <Box my="2">
-                  <Flex>
-                    <Select placeholder='Select Coin'>
+                  <Center>
+                    <Select
+                      width="190px" 
+                      bg='gray.700'
+                      borderColor='white'
+                      color='white'
+                      placeholder='Select Coin' 
+                      mr="8"
+                      >
                       <option value='option1'>ETH</option>
                       <option value='option2'>WETH</option>
                       <option value='option3'>MATIC</option>
                     </Select>
-                    <Select placeholder='Select Chain'>
+                    <Select
+                      width="190px" 
+                      bg='gray.700'
+                      borderColor='white'
+                      color='white'
+                      placeholder='Select Chain'>
                       <option value='option1'>Mainnet</option>
                       <option value='option2'>Polygon</option>
                       <option value='option3'>Optimism</option>
                     </Select>
-                  </Flex>
+                  </Center>
                 </Box>
                 <Box my="2">
-                  <Flex>
-                    <Select placeholder='Select Coin'>
+                  <Center>
+                    <Select
+                      width="190px" 
+                      bg='gray.700'
+                      borderColor='white'
+                      color='white'
+                      placeholder='Select Coin' 
+                      mr="8"
+                      >
                       <option value='option1'>ETH</option>
                       <option value='option2'>WETH</option>
                       <option value='option3'>MATIC</option>
                     </Select>
-                    <Select placeholder='Select Chain'>
+                    <Select
+                      width="190px" 
+                      bg='gray.700'
+                      borderColor='white'
+                      color='white'
+                      placeholder='Select Chain'>
                       <option value='option1'>Mainnet</option>
                       <option value='option2'>Polygon</option>
                       <option value='option3'>Optimism</option>
                     </Select>
-                  </Flex>
+                  </Center>
                 </Box>
-                <Button my="2" width="80px" onClick={onApprove}>Approve</Button>
-                <Button my="2" width="80px" onClick={onSwap}>Swap</Button>
+                <Flex justify="center" direction="column" align="center">
+                  <Button my="2" width="80px" onClick={onApprove}>Approve</Button>
+                  <Button my="2" width="80px" onClick={onSwap}>Swap</Button>
+
+                </Flex>
               </Flex>
             </Box>
           </Flex>

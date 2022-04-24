@@ -10,7 +10,7 @@ import { providers } from "ethers";
 
 //  Create WalletConnect Provider
 const provider = new WalletConnectProvider({
-  infuraId: "",
+  infuraId: "8f05659663d54368ad0b74cc973eac60",
 });
 
 //  Wrap with Web3Provider from ethers.js
