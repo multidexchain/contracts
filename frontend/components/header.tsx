@@ -30,7 +30,7 @@ import {
                 ""
               ) : (
                 <Text color={"white"} fontWeight="bold" fontSize="2xl" >
-                  Heard of Cows
+                  Herd of Cows
                 </Text>
               )}
             </Flex>
